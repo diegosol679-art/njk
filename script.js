@@ -11,7 +11,8 @@ const chatbotReplies = [
   "Could you clarify a bit more?",
   "Sounds like we're onto something exciting!",
   "Hmm, have you considered a different approach?",
-  "Great question! I'll have to ponder that.",
+  "Great question! I'll have to ponder that."
+  ,
 ];
 
 function createMessage({ text, sender, direction }) {

@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chat Lounge</title>
+  <title>Parlor Communiqué</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Special+Elite&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app">
     <header class="app__header">
-      <div class="app__header-title">Chat Lounge</div>
-      <div class="app__header-status">
+      <div class="app__header-title">Parlor Communiqué</div>
+      <div class="app__header-status" aria-live="polite">
         <span class="app__status-indicator" aria-hidden="true"></span>
-        <span>Online</span>
+        <span>Link Established</span>
       </div>
     </header>
 
@@ -23,8 +26,10 @@
       <div class="message message--incoming">
         <div class="message__avatar" aria-hidden="true">💬</div>
         <div>
-          <div class="message__sender">Chatbot</div>
-          <div class="message__bubble">Welcome to the Chat Lounge! Type a message below to start the conversation.</div>
+          <div class="message__sender">Automaton</div>
+          <div class="message__bubble">
+            Welcome to this dimly lit parlor of correspondence. Compose a note below and the automaton will respond in kind.
+          </div>
           <time class="message__timestamp" datetime="">Just now</time>
         </div>
       </div>
