@@ -12,8 +12,37 @@
   />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="app">
+<body class="has-gate">
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate__panel">
+      <h1 class="gate__title" id="gate-title">Parlor Admission</h1>
+      <p class="gate__intro">
+        Before you may correspond with the automaton, inscribe the answer to a question from the annals of history.
+      </p>
+      <form class="gate__form" id="gate-form" autocomplete="off">
+        <label class="gate__label" for="gate-answer">
+          In which year did the Battle of Hastings take place?
+        </label>
+        <input
+          class="gate__input"
+          id="gate-answer"
+          name="gate-answer"
+          type="text"
+          inputmode="numeric"
+          placeholder="Enter the year"
+          aria-describedby="gate-hint gate-error"
+          required
+        />
+        <p class="gate__hint" id="gate-hint">Record the numerals as they would appear in a chronicle.</p>
+        <p class="gate__error" id="gate-error" role="alert" hidden>
+          That does not align with the illuminated manuscripts. Try again.
+        </p>
+        <button class="gate__submit" type="submit">Present Credentials</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="app" id="app" hidden>
     <header class="app__header">
       <div class="app__header-title">Parlor Communiqué</div>
       <div class="app__header-status" aria-live="polite">

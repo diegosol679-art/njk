@@ -1,19 +1,98 @@
+const body = document.body;
+const app = document.querySelector('#app');
+const gate = document.querySelector('#gate');
+const gateForm = document.querySelector('#gate-form');
+const gateInput = document.querySelector('#gate-answer');
+const gateError = document.querySelector('#gate-error');
 const composerForm = document.querySelector('#composer');
 const messageInput = document.querySelector('#message-input');
 const chatScroll = document.querySelector('#chat-scroll');
 const template = document.querySelector('#message-template');
 
 const chatbotReplies = [
-  "That's interesting! Tell me more.",
-  "I hear you. How does that make you feel?",
-  "Let's think about another angle. What else comes to mind?",
-  "I appreciate you sharing that!",
-  "Could you clarify a bit more?",
-  "Sounds like we're onto something exciting!",
-  "Hmm, have you considered a different approach?",
-  "Great question! I'll have to ponder that."
-  ,
+  "What an intriguing missive. It stirs dusty tomes in my memory—pray elaborate so we may unearth more detail together.",
+  "Your words hum like telegraph wire in a stormy dusk. How has the matter unfolded thus far on your end?",
+  "I shall consult the brass gears that pass for my intuition. In the meantime, are there other clues you have observed?",
+  "Such reflections warrant a careful ledger. Perhaps note the cause, the effect, and any curious coincidences that trailed behind.",
+  "Ah! This reminds me of a parlor debate from ages ago. Were you to attempt the opposite tack, what might transpire?",
+  "Permit me a moment to stoke the furnace of thought... there. Does the notion of involving an ally or confidant appeal to you?",
+  "If one were to sketch this dilemma upon parchment, which corner would you shade the darkest, and why?",
+  "Your inquiry is rich as aged ink. Suppose we fast-forward a fortnight—what outcome would satisfy your mind?",
+  "I sense a whisper of opportunity in your account. Could we catalog the risks and rewards as if we were merchants tallying wares?",
+  "The automaton tilts its head thoughtfully. Might a small experiment, conducted quietly, offer guidance before a grand decision?",
+  "An admirable sentiment indeed. Should obstacles arise, which tools already at your disposal would you sharpen first?",
+  "Let us linger on the emotional residue of this affair. What lingers longest once the conversation dims for the night?",
 ];
+
+const acceptedBattleOfHastingsAnswers = [
+  '1066',
+  'ad1066',
+  'a.d.1066',
+  '1066ad',
+  '1066ce',
+  'ce1066',
+  'mlxvi',
+  'october141066',
+  'oct141066',
+  '14october1066',
+];
+
+function normalizeAnswer(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function unlockParlor() {
+  if (app) {
+    app.hidden = false;
+  }
+  if (gate) {
+    gate.setAttribute('aria-hidden', 'true');
+    gate.classList.add('gate--dismissed');
+    setTimeout(() => {
+      gate.remove();
+    }, 500);
+  }
+  if (body) {
+    body.classList.remove('has-gate');
+  }
+  if (messageInput) {
+    messageInput.focus();
+  }
+}
+
+function showGateError() {
+  if (!gate || !gateError) {
+    return;
+  }
+
+  gateError.hidden = false;
+  gate.classList.remove('gate--shake');
+  void gate.offsetHeight;
+  gate.classList.add('gate--shake');
+}
+
+if (gateForm && gateInput) {
+  gateForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const response = normalizeAnswer(gateInput.value);
+
+    if (!response) {
+      showGateError();
+      gateInput.focus();
+      return;
+    }
+
+    if (acceptedBattleOfHastingsAnswers.includes(response)) {
+      if (gateError) {
+        gateError.hidden = true;
+      }
+      unlockParlor();
+    } else {
+      showGateError();
+      gateInput.select();
+    }
+  });
+}
 
 function createMessage({ text, sender, direction }) {
   const clone = template.content.cloneNode(true);
@@ -52,34 +131,47 @@ function replyFromBot() {
   addMessage({ text: reply, sender: 'Chatbot', direction: 'incoming' });
 }
 
-composerForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const text = messageInput.value.trim();
-
-  if (!text) {
-    messageInput.focus();
-    return;
-  }
-
-  addMessage({ text, sender: 'You', direction: 'outgoing' });
-  messageInput.value = '';
-  messageInput.focus();
-
-  window.requestAnimationFrame(() => {
-    setTimeout(replyFromBot, 450);
-  });
-});
-
-messageInput.addEventListener('input', () => {
-  messageInput.style.height = 'auto';
-  messageInput.style.height = `${Math.min(messageInput.scrollHeight, 140)}px`;
-});
-
-messageInput.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter' && !event.shiftKey) {
+if (composerForm && messageInput) {
+  composerForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    composerForm.requestSubmit();
-  }
-});
+    const text = messageInput.value.trim();
 
-messageInput.focus();
+    if (!text) {
+      messageInput.focus();
+      return;
+    }
+
+    addMessage({ text, sender: 'You', direction: 'outgoing' });
+    messageInput.value = '';
+    messageInput.focus();
+
+    window.requestAnimationFrame(() => {
+      setTimeout(replyFromBot, 450);
+    });
+  });
+
+  messageInput.addEventListener('input', () => {
+    messageInput.style.height = 'auto';
+    messageInput.style.height = `${Math.min(messageInput.scrollHeight, 140)}px`;
+  });
+
+  messageInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      composerForm.requestSubmit();
+    }
+  });
+}
+
+if (gateInput) {
+  gateInput.addEventListener('input', () => {
+    if (gateError && !gateError.hidden) {
+      gateError.hidden = true;
+    }
+    if (gate) {
+      gate.classList.remove('gate--shake');
+    }
+  });
+
+  gateInput.focus();
+}
