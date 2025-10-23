@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Lounge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app__header">
+      <div class="app__header-title">Chat Lounge</div>
+      <div class="app__header-status">
+        <span class="app__status-indicator" aria-hidden="true"></span>
+        <span>Online</span>
+      </div>
+    </header>
+
+    <main class="app__main" id="chat-scroll" aria-live="polite">
+      <div class="message message--incoming">
+        <div class="message__avatar" aria-hidden="true">💬</div>
+        <div>
+          <div class="message__sender">Chatbot</div>
+          <div class="message__bubble">Welcome to the Chat Lounge! Type a message below to start the conversation.</div>
+          <time class="message__timestamp" datetime="">Just now</time>
+        </div>
+      </div>
+    </main>
+
+    <form class="composer" id="composer" autocomplete="off">
+      <label class="composer__field" for="message-input">
+        <span class="sr-only">Message</span>
+        <textarea id="message-input" name="message" rows="1" placeholder="Type your message..." required></textarea>
+      </label>
+      <button class="composer__send" type="submit" aria-label="Send message">
+        <span>Send</span>
+      </button>
+    </form>
+  </div>
+
+  <template id="message-template">
+    <div class="message">
+      <div class="message__avatar" aria-hidden="true"></div>
+      <div>
+        <div class="message__sender"></div>
+        <div class="message__bubble"></div>
+        <time class="message__timestamp" datetime=""></time>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
