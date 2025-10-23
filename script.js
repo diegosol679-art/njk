@@ -4,18 +4,15 @@ const chatScroll = document.querySelector('#chat-scroll');
 const template = document.querySelector('#message-template');
 
 const chatbotReplies = [
-  "What an intriguing missive. It stirs dusty tomes in my memory—pray elaborate so we may unearth more detail together.",
-  "Your words hum like telegraph wire in a stormy dusk. How has the matter unfolded thus far on your end?",
-  "I shall consult the brass gears that pass for my intuition. In the meantime, are there other clues you have observed?",
-  "Such reflections warrant a careful ledger. Perhaps note the cause, the effect, and any curious coincidences that trailed behind.",
-  "Ah! This reminds me of a parlor debate from ages ago. Were you to attempt the opposite tack, what might transpire?",
-  "Permit me a moment to stoke the furnace of thought... there. Does the notion of involving an ally or confidant appeal to you?",
-  "If one were to sketch this dilemma upon parchment, which corner would you shade the darkest, and why?",
-  "Your inquiry is rich as aged ink. Suppose we fast-forward a fortnight—what outcome would satisfy your mind?",
-  "I sense a whisper of opportunity in your account. Could we catalog the risks and rewards as if we were merchants tallying wares?",
-  "The automaton tilts its head thoughtfully. Might a small experiment, conducted quietly, offer guidance before a grand decision?",
-  "An admirable sentiment indeed. Should obstacles arise, which tools already at your disposal would you sharpen first?",
-  "Let us linger on the emotional residue of this affair. What lingers longest once the conversation dims for the night?",
+  "That's interesting! Tell me more.",
+  "I hear you. How does that make you feel?",
+  "Let's think about another angle. What else comes to mind?",
+  "I appreciate you sharing that!",
+  "Could you clarify a bit more?",
+  "Sounds like we're onto something exciting!",
+  "Hmm, have you considered a different approach?",
+  "Great question! I'll have to ponder that."
+  ,
 ];
 
 function createMessage({ text, sender, direction }) {
